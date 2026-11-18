@@ -18,6 +18,12 @@
 
     packages.${system} = {
       inherit (pkgs) fleet-orbit osquery fleet-desktop;
+
+      read-deb = pkgs.writeShellApplication {
+        name = "secureframe-read-deb";
+        runtimeInputs = [pkgs.coreutils pkgs.dpkg pkgs.gnutar];
+        text = builtins.readFile ./read-deb.sh;
+      };
     };
 
     checks.${system}.module-eval = let
